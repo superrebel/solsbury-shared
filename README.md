@@ -18,8 +18,14 @@ Daarna zijn er geen Webflow-aanpassingen meer nodig bij CSS-updates.
 
 1. Pas `style.css` aan en push naar `main`.
 2. De GitHub Action (`.github/workflows/purge-jsdelivr.yml`) purgt automatisch de
-   jsDelivr-cache voor `style.css` (jsDelivr cachet branch-URLs anders tot ~7 dagen).
-3. Binnen een minuut serveert jsDelivr de nieuwe versie op alle sites.
+   jsDelivr-cache voor `style.css` (jsDelivr cachet branch-URLs anders tot ~7 dagen)
+   en **verifieert** daarna dat de `@main`-URL byte-voor-byte gelijk is aan de
+   gepushte file. Lukt dat niet, dan purgt hij opnieuw (tot 12 pogingen) en faalt
+   de job als jsDelivr na alle retries nog stale is.
+3. Zodra de Action groen is, serveert jsDelivr de nieuwe versie op alle sites.
+
+> Wat je daarna in de browser ziet kan nog je eigen browsercache zijn:
+> hard refresh (`Cmd/Ctrl + Shift + R`) of test in een incognitovenster.
 
 ## Waarom jsDelivr en niet raw.githubusercontent.com
 
