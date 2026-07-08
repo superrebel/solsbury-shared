@@ -1,20 +1,48 @@
 name: Purge jsDelivr cache
 
-# Bij elke push naar main die style.css raakt, purgen we de jsDelivr-cache
-# zodat de wijziging direct live staat op alle Webflow-sites.
+# Bij elke push naar main die style.css raakt: purge de jsDelivr-cache en
+# verifieer dat jsDelivr daadwerkelijk de nieuwe versie serveert. De job gaat
+# pas op groen als de @main-URL byte-voor-byte gelijk is aan de gepushte file.
 on:
   push:
     branches:
       - main
     paths:
       - style.css
+      - .github/workflows/purge-jsdelivr.yml
   workflow_dispatch: {}
 
 jobs:
   purge:
     runs-on: ubuntu-latest
     steps:
-      - name: Purge style.css from jsDelivr
-        uses: gacts/purge-jsdelivr-cache@v1
-        with:
-          url: https://cdn.jsdelivr.net/gh/superrebel/solsbury-shared@main/style.css
+      - uses: actions/checkout@v4
+
+      - name: Purge en verifieer style.css op jsDelivr
+        env:
+          CDN_URL: https://cdn.jsdelivr.net/gh/superrebel/solsbury-shared@main/style.css
+          PURGE_URL: https://purge.jsdelivr.net/gh/superrebel/solsbury-shared@main/style.css
+        run: |
+          set -euo pipefail
+          want="$(sha256sum style.css | cut -d' ' -f1)"
+          echo "Verwachte hash (gepushte file): $want"
+
+          for i in $(seq 1 12); do
+            echo "::group::Poging $i"
+            echo "→ purge aanvragen"
+            curl -fsS "$PURGE_URL" -o /dev/null || echo "purge-call faalde, toch verder met verifiëren"
+            sleep 5
+            got="$(curl -fsS "$CDN_URL" | sha256sum | cut -d' ' -f1)"
+            echo "geserveerd door jsDelivr: $got"
+            if [ "$got" = "$want" ]; then
+              echo "✅ jsDelivr serveert de nieuwe style.css"
+              echo "::endgroup::"
+              exit 0
+            fi
+            echo "nog stale — opnieuw proberen"
+            echo "::endgroup::"
+            sleep 5
+          done
+
+          echo "❌ jsDelivr serveert na alle retries nog de oude inhoud"
+          exit 1
