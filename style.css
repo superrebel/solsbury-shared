@@ -1,14 +1,14 @@
 /* ==========================================================================
    Gedeelde stijlen — solsbury-shared
    --------------------------------------------------------------------------
-   Deze CSS wordt gehost op GitHub en geserveerd via jsDelivr.
+   Deze CSS wordt gehost op GitHub en geserveerd via GitHub Pages.
    Ingeladen in Webflow via Site Settings → Custom Code → Head Code:
 
      <link rel="stylesheet"
-           href="https://cdn.jsdelivr.net/gh/superrebel/solsbury-shared@main/style.css">
+           href="https://superrebel.github.io/solsbury-shared/style.css">
 
-   Bij elke push naar `main` purgt een GitHub Action automatisch de
-   jsDelivr-cache, zodat wijzigingen direct live staan.
+   Bij elke push naar `main` deployt een GitHub Action automatisch naar Pages;
+   GitHub purgt daarbij zijn CDN, zodat wijzigingen binnen ~1-2 min live staan.
 
    Voeg hieronder je gedeelde stijlen toe.
    ========================================================================== */

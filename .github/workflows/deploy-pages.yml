@@ -1,0 +1,64 @@
+name: Deploy CSS to GitHub Pages
+
+# Publiceert style.css naar GitHub Pages bij elke push naar main.
+# GitHub purgt zijn CDN bij elke deploy, dus updates staan binnen ~1-2 min live.
+# De verify-stap bevestigt dat Pages de nieuwe versie met text/css serveert.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - style.css
+      - .github/workflows/deploy-pages.yml
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nooit twee deploys tegelijk.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build site (publiceer alleen style.css)
+        run: |
+          mkdir -p _site
+          cp style.css _site/style.css
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verifieer dat Pages de nieuwe style.css serveert
+        env:
+          CSS_URL: https://superrebel.github.io/solsbury-shared/style.css
+        run: |
+          set -euo pipefail
+          want="$(sha256sum style.css | cut -d' ' -f1)"
+          echo "Verwachte hash (gepushte file): $want"
+          for i in $(seq 1 20); do
+            got="$(curl -fsS "$CSS_URL" | sha256sum | cut -d' ' -f1)" || got="(nog geen respons)"
+            ct="$(curl -fsSI "$CSS_URL" 2>/dev/null | tr -d '\r' | grep -i '^content-type:' || echo 'content-type: ?')"
+            echo "poging $i: $got  |  $ct"
+            if [ "$got" = "$want" ]; then
+              echo "✅ Pages serveert de nieuwe style.css"
+              exit 0
+            fi
+            sleep 6
+          done
+          echo "❌ Pages serveert na alle retries nog niet de nieuwe inhoud"
+          exit 1
