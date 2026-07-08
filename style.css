@@ -12,3 +12,195 @@
 
    Voeg hieronder je gedeelde stijlen toe.
    ========================================================================== */
+
+
+  :root{
+    --color: black;
+    --font-size: clamp(16px, 5vw, 20px);
+    --gap: 2rem;
+    --section-padding: 2rem;
+
+    --heading-ff: "Times new Roman", serif;
+    --heading-fw: bold;
+    --heading-lh: .8;
+
+    --footer-color: black;
+    --footer-background: pink;
+
+    --button-color: blue;
+    --button-background: red;
+    --button-radius: 10rem;
+    --button-font-family: sans-serif;
+    --button-font-weight: normal;
+    --button-line-height: .8;
+    --button-text-transform: none;
+    --button-hover-color: green;
+    --button-hover-background: lime;
+  }
+
+
+  /* default html */
+  html{
+    font-size: var(--font-size);
+    color: var(--color);
+  }
+
+  body{
+    font-size: inherit;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  a{ 
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1, h2, h3, h4, h5, h6{
+    font-family: var(--heading-ff);
+    font-weight: var(--heading-fw);
+    line-height: var(--heading-lh);
+    margin-bottom: 1rem;
+  }
+
+  h1{ font-size: clamp( 3.0rem, 5.0vw, 6.0rem) };
+  h2{ font-size: clamp( 2.0rem, 4.0vw, 4.0rem) };
+  h3{ font-size: clamp( 1.6rem, 3.5vw, 3.0rem) };
+  h4{ font-size: clamp( 1.4rem, 3.0vw, 2.5rem) };
+  h5{ font-size: clamp( 1.2rem, 2.5vw, 2.0rem) };
+  h6{ font-size: clamp( 1.0rem, 2.0vw, 1.5rem) };
+  p{ margin-bottom: 1rem; }
+    
+  /* webflow resets - start */
+  .w-container{
+  	max-width: 1400px;
+    padding-left: 1.0rem;
+    padding-right: 1.0rem;
+  }
+  .w-layout-layout{
+    padding: 0;
+    gap: var(--gap);
+  }
+  /* webflow resets - start */
+
+  #header{
+    position: sticky;
+    background: transparent;
+  }
+
+  #header-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    height: 4rem;
+  }
+
+  #logo{
+    display: block;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #logo > img{
+    display: block;
+	width: auto;
+    height: 100%;
+  }
+
+  #header-nav a{
+    color: inherit;
+    padding: 1rem;
+  }
+
+  #prefooter{
+    margin-top: auto;
+    height: 20vh;
+    background: lime;
+    justify-self: flex-end;
+  }
+
+  
+
+  #footer{
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+    color: var(--footer-color);
+    background:var(--footer-background);
+    justify-self: flex-end;
+  }
+  
+  #footer-stack{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 2fr 1fr;
+    column-gap: var(--gap);
+    row-gap: var(--gap);
+  }
+
+  #footer-stack > * {
+  	flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+  }
+  
+  #footer-nav{
+    display: grid;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr;
+    justify-content: stretch;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  #sb-logo{
+    display: block;
+    width: 100%;
+  }
+  #sb-logo > img{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+
+
+  .button{
+  	background: 	var(--button-background);
+    color:  		var(--button-color);
+    padding: 		.5rem 1rem;
+    display: 		inline-block;
+    margin-bottom: 	1rem;
+    border-radius: 	var(--button-radius);
+    font-family: 	var(--button-font-family);
+    font-weight: 	var(--button-font-weight);
+    line-height: 	var(--button-line-height);
+    text-transform: var(--button-text-transform);
+  }    
+
+  .button:hover{
+    color: 			var(--button-hover-color);
+    background: 	var(--button-hover-background);
+  }
+
+  
+
+  @media screen and (max-width: 767px) {
+    #footer-stack{
+        grid-template-rows: auto;
+    	grid-template-columns: 1fr;
+    }
+  }
