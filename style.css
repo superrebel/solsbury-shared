@@ -15,7 +15,7 @@
 
 
   :root{
-    --color: black;
+    --color: #222222;
     --font-size: clamp(16px, 5vw, 20px);
     --gap: 2rem;
     --section-padding: 2rem;
