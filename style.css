@@ -121,11 +121,19 @@
   }
 
   #prefooter{
+    position: relative;
     margin-top: auto;
-    height: 20vh;
-    background: lime;
+    background: transparent;
     justify-self: flex-end;
+    z-index: 1;
   }
+
+  #prefooter > img{
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
 
   
 
