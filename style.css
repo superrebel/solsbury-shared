@@ -159,6 +159,10 @@
     align-items: flex-start;
     display: flex;
   }
+
+  #footer-nav {
+    width: 100%;
+  }
   
   #footer-nav .w-dyn-items{
     display: grid;
