@@ -12,13 +12,14 @@
 
    Voeg hieronder je gedeelde stijlen toe.
    ========================================================================== */
-
-
   :root{
     --color: black;
     --font-size: clamp(16px, 5vw, 20px);
+    --line-height: 1.5;
     --gap: 2rem;
-    --section-padding: 2rem;
+    --section-padding: 4rem;
+
+    --hh: 70px;
 
     --heading-ff: "Times new Roman", serif;
     --heading-fw: bold;
@@ -36,13 +37,37 @@
     --button-text-transform: none;
     --button-hover-color: green;
     --button-hover-background: lime;
+
+    --u1: 0.5rem;
+    --u2: 1rem;
+    --u3: 1.5rem;
+    --u4: 2rem;
+    --u5: 3rem;
+    --u10: 5rem;
   }
 
 
-  /* default html */
+  /* webflow resets - start */
+  P{
+    margin: 0;
+  }
+  .w-container{
+  	max-width: 1400px;
+    padding-left: 1.0rem;
+    padding-right: 1.0rem;
+  }
+  .w-layout-layout{
+    padding: 0;
+    gap: var(--gap);
+  }
+  /* webflow resets - end */
+
+
+  /* default html - start */
   html{
     font-size: var(--font-size);
     color: var(--color);
+    line-height: var(--line-height);
   }
 
   body{
@@ -54,6 +79,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    padding-top: var(--hh);
   }
   
   a{ 
@@ -68,28 +94,97 @@
     margin-bottom: 1rem;
   }
 
-  h1{ font-size: clamp( 3.0rem, 5.0vw, 6.0rem) };
-  h2{ font-size: clamp( 2.0rem, 4.0vw, 4.0rem) };
-  h3{ font-size: clamp( 1.6rem, 3.5vw, 3.0rem) };
-  h4{ font-size: clamp( 1.4rem, 3.0vw, 2.5rem) };
-  h5{ font-size: clamp( 1.2rem, 2.5vw, 2.0rem) };
-  h6{ font-size: clamp( 1.0rem, 2.0vw, 1.5rem) };
-  p{ margin-bottom: 1rem; }
-    
-  /* webflow resets - start */
-  .w-container{
-  	max-width: 1400px;
-    padding-left: 1.0rem;
-    padding-right: 1.0rem;
+  h1{ font-size: clamp( 3.0rem, 5.0vw, 6.0rem); }
+  h2{ font-size: clamp( 2.0rem, 4.0vw, 4.0rem); }
+  h3{ font-size: clamp( 1.6rem, 3.5vw, 3.0rem); }
+  h4{ font-size: clamp( 1.4rem, 3.0vw, 2.5rem); }
+  h5{ font-size: clamp( 1.2rem, 2.5vw, 2.0rem); }
+  h6{ font-size: clamp( 1.0rem, 2.0vw, 1.5rem); }
+  p:not(:last-child){ margin-bottom: 1rem; }
+
+  section{
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
   }
-  .w-layout-layout{
-    padding: 0;
-    gap: var(--gap);
-  }
-  /* webflow resets - start */
+
+  /* default html - end */
+
+  /* utility classes - start */
+
+  .c-primary{ color: var(--primary); }
+  .c-secondary{ color: var(--secondary); }
+  .c-light{ color: var(--light); }
+  .c-dark{ color: var(--dark); }
+  .bg-primary{ background: var(--primary); }
+  .bg-secondary{ background: var(--secondary); }
+  .bg-light{ background: var(--light); }
+  .bg-dark{ background: var(--dark); }
+
+  .mb-0{ margin-bottom: 0; }
+  .mb-1{ margin-bottom: var(--u1); }
+  .mb-2{ margin-bottom: var(--u2); }
+  .mb-3{ margin-bottom: var(--u3); }
+  .mb-4{ margin-bottom: var(--u4); }
+  .mb-5{ margin-bottom: var(--u5); }
+  .mb-10{ margin-bottom: var(--u10); }
+  
+  .mt-0{ margin-top: 0; }
+  .mt-1{ margin-top: var(--u1); }
+  .mt-2{ margin-top: var(--u2); }
+  .mt-3{ margin-top: var(--u3); }
+  .mt-4{ margin-top: var(--u4); }
+  .mt-5{ margin-top: var(--u5); }
+  .mt-10{ margin-top: var(--u10); }
+
+  .my-0{ margin-top: 0; margin-bottom: 0; }
+  .my-1{ margin-top: var(--u1); margin-bottom: var(--u1); }
+  .my-2{ margin-top: var(--u2); margin-bottom: var(--u2); }
+  .my-3{ margin-top: var(--u3); margin-bottom: var(--u3); }
+  .my-4{ margin-top: var(--u4); margin-bottom: var(--u4); }
+  .my-5{ margin-top: var(--u5); margin-bottom: var(--u5); }
+  .my-10{ margin-top: var(--u10); margin-bottom: var(--u10); }
+
+  .pt-0{ padding-top: 0; }
+  .pt-1{ padding-top: var(--u1); }
+  .pt-2{ padding-top: var(--u2); }
+  .pt-3{ padding-top: var(--u3); }
+  .pt-4{ padding-top: var(--u4); }
+  .pt-5{ padding-top: var(--u5); }
+  .pt-10{ padding-top: var(--u10); }
+
+  .pb-0{ padding-bottom: 0; }
+  .pb-1{ padding-bottom: var(--u1); }
+  .pb-2{ padding-bottom: var(--u2); }
+  .pb-3{ padding-bottom: var(--u3); }
+  .pb-4{ padding-bottom: var(--u4); }
+  .pb-5{ padding-bottom: var(--u5); }
+  .pb-10{ padding-bottom: var(--u10); }
+
+  .py-0{ padding-top: 0; padding-bottom: 0; }
+  .py-1{ padding-top: var(--u1); padding-bottom: var(--u1); }
+  .py-2{ padding-top: var(--u2); padding-bottom: var(--u2); }
+  .py-3{ padding-top: var(--u3); padding-bottom: var(--u3); }
+  .py-4{ padding-top: var(--u4); padding-bottom: var(--u4); }
+  .py-5{ padding-top: var(--u5); padding-bottom: var(--u5); }
+  .py-10{ padding-top: var(--u10); padding-bottom: var(--u10); }  
+
+  .big-body{ font-size: 125%; }
+  .relative{ position: relative; }
+
+
+  .w-100{ width: 100%; }
+  .h-100{ height: 100%; }
+
+  /* utility classes - end */
+
+
 
   #header{
-    position: sticky;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
     background: transparent;
   }
 
@@ -100,7 +195,7 @@
     align-content: center;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    height: 4rem;
+    height: var(--hh);
   }
 
   #logo{
@@ -111,20 +206,65 @@
 
   #logo > img{
     display: block;
-	width: auto;
+	  width: auto;
     height: 100%;
   }
 
+  #header-nav{
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  #header-nav [role="list"]{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  #header-nav ul, #header-nav li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   #header-nav a{
+    display: block;
     color: inherit;
     padding: 1rem;
   }
 
+  #header-nav li{
+    position: relative;
+  }
+
+  #header-nav ul [role="list"]{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 300px;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #header-nav ul li:hover [role="list"]{
+    display: flex;
+  }
+
+
+
+  #bottom{
+    margin-top: auto;
+    justify-self: flex-end;
+  }
+
   #prefooter{
     position: relative;
-    margin-top: auto;
     background: transparent;
-    justify-self: flex-end;
     z-index: 1;
   }
 
@@ -133,8 +273,6 @@
     width: 100%; 
     height: auto;
   }
-
-
   
 
   #footer{
@@ -142,7 +280,6 @@
     padding-bottom: var(--section-padding);
     color: var(--footer-color);
     background:var(--footer-background);
-    justify-self: flex-end;
   }
   
   #footer-stack{
@@ -160,11 +297,17 @@
     display: flex;
   }
 
+  #footer-logo img{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   #footer-nav {
     width: 100%;
   }
   
-  #footer-nav .w-dyn-items{
+  #footer-nav [role="list"]{
     display: grid;
     column-gap: 1rem;
     row-gap: 1rem;
@@ -190,10 +333,10 @@
 
 
 
-  .button{
+  [button="primary"]{
   	background: 	var(--button-background);
     color:  		var(--button-color);
-    padding: 		.5rem 1rem;
+    padding: 		1rem 2rem;
     display: 		inline-block;
     margin-bottom: 	1rem;
     border-radius: 	var(--button-radius);
@@ -203,12 +346,65 @@
     text-transform: var(--button-text-transform);
   }    
 
-  .button:hover{
+  [button="primary"]:hover{
     color: 			var(--button-hover-color);
     background: 	var(--button-hover-background);
   }
 
-  
+
+  .solsbury---project-template--block-text-image .w-layout-cell,
+  .solsbury---project-template--block-image-text .w-layout-cell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+  .solsbury---project-template--block-text-image img,
+  .solsbury---project-template--block-image-text img{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+
+
+  *[card="news"]{
+    position: relative;
+    display: block;
+    height: 100%;
+  }
+  *[newscard="link"]{
+    position: absolute;
+    inset: 0;
+    display: block;
+    z-index: 1;
+  }
+  *[newscard="thumb"]{
+    display: block;
+    aspect-ratio: 16/9;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  *[newscard="image"]{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  *[newscard="title"]{
+    margin: 0;
+  }
+  *[newscard="date"]{
+    margin-top: .5rem;
+    opacity: .8;
+  }
+  *[newscard="text"]{
+    margin-top: 1rem;
+  }
+
+
+
 
   @media screen and (max-width: 767px) {
     #footer-stack{
