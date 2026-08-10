@@ -421,8 +421,8 @@
     left: 0;
     width: 100%;
     margin: 0;
-    padding: 0 0 0 .5rem;
+    padding: 0 0 0 1rem;
   }
   .w-nav-overlay #header-nav ul [role="list"] a{
-    padding: .5rem;
+    padding: .25rem;
   }
