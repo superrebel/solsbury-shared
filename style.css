@@ -233,7 +233,7 @@
     position: relative;
   }
 
-  .w-nav-overlay [role="list"],
+ 
   #header-nav ul [role="list"]{
     position: absolute;
     top: 100%;
@@ -406,4 +406,13 @@
         grid-template-rows: auto;
     	grid-template-columns: 1fr;
     }
+  }
+
+
+
+  .w-nav-overlay [role="list"]{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
   }
