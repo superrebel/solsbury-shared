@@ -415,6 +415,7 @@
     text-align: left;
   }
   .w-nav-overlay #header-nav ul [role="list"]{
+    display: flex;
     position: relative;
     top: 0;
     left: 0;
