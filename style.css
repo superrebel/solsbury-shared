@@ -398,6 +398,10 @@
     margin-top: 1rem;
   }
 
+  [block="ttl"] [button="primary"]{
+    margin-top: 1rem;
+  }
+
 
 
   @media screen and (max-width: 767px) {
