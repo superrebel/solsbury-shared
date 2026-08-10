@@ -233,7 +233,7 @@
     position: relative;
   }
 
-  #w-nav-overlay [role="list"],
+  .w-nav-overlay [role="list"],
   #header-nav ul [role="list"]{
     position: absolute;
     top: 100%;
