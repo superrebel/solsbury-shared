@@ -168,6 +168,12 @@
   .py-5{ padding-top: var(--u5); padding-bottom: var(--u5); }
   .py-10{ padding-top: var(--u10); padding-bottom: var(--u10); }  
 
+  .text-left{ text-align: left; }
+  .text-center{ text-align: center; }
+  .text-right{ text-align: right; }
+  .text-justify{ text-align: justify; }
+  
+
   .big-body{ font-size: 125%; }
   .relative{ position: relative; }
 
