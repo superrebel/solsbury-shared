@@ -398,6 +398,9 @@
     margin-top: 1rem;
   }
 
+  [block="ttl"]{
+    margin-bottom: var(--gap);
+  } 
   [block="ttl"] [button="primary"]{
     margin-top: 1rem;
   }
