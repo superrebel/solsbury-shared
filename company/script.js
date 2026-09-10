@@ -149,4 +149,4 @@ window.addEventListener('load', (event) => {
     if (yearEl && currentYear) {
       yearEl.textContent = currentYear;
     }
-  });
+});
