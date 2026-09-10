@@ -1,9 +1,9 @@
 # solsbury-shared
 
-Eén centraal CSS-bestand dat door meerdere Webflow-projecten wordt ingeladen via GitHub Pages.
-Wijzig je `style.css` en push je naar `main`, dan werkt de update automatisch door op alle sites.
+Centrale statische bestanden (CSS/JS) die door meerdere projecten worden ingeladen via
+GitHub Pages. Wijzig een bestand en push naar `main`, dan werkt de update automatisch door.
 
-## De URL (plakken in Webflow)
+## De URL's (plakken in Webflow)
 
 Site Settings → Custom Code → **Head Code**:
 
@@ -11,16 +11,23 @@ Site Settings → Custom Code → **Head Code**:
 <link rel="stylesheet" href="https://superrebel.github.io/solsbury-shared/style.css">
 ```
 
-Publiceer elk Webflow-project één keer nadat je de `<link>`-tag hebt toegevoegd.
-Daarna zijn er geen Webflow-aanpassingen meer nodig bij CSS-updates.
+Alles in de `company/` map wordt ook gepubliceerd, onder hetzelfde pad:
+
+```html
+<link rel="stylesheet" href="https://superrebel.github.io/solsbury-shared/company/style.css">
+<script src="https://superrebel.github.io/solsbury-shared/company/script.js"></script>
+```
+
+Publiceer elk Webflow-project één keer nadat je de tag hebt toegevoegd.
+Daarna zijn er geen Webflow-aanpassingen meer nodig bij updates.
 
 ## Hoe updates live komen
 
-1. Pas `style.css` aan en push naar `main`.
-2. De GitHub Action (`.github/workflows/deploy-pages.yml`) deployt `style.css` naar
+1. Pas `style.css` of een bestand in `company/` aan en push naar `main`.
+2. De GitHub Action (`.github/workflows/deploy-pages.yml`) deployt de bestanden naar
    GitHub Pages. GitHub purgt daarbij zijn CDN (Fastly), dus de nieuwe versie staat
    binnen ~1-2 min wereldwijd live.
-3. De Action **verifieert** daarna dat de gepubliceerde URL byte-voor-byte gelijk is
+3. De Action **verifieert** daarna dat elke gepubliceerde URL byte-voor-byte gelijk is
    aan de gepushte file, en faalt als dat niet lukt.
 
 > Wat je daarna in de browser ziet kan nog je eigen browsercache zijn:

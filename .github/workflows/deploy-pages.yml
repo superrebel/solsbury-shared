@@ -1,6 +1,6 @@
 name: Deploy CSS to GitHub Pages
 
-# Publiceert style.css naar GitHub Pages bij elke push naar main.
+# Publiceert style.css en de company/ map naar GitHub Pages bij elke push naar main.
 # GitHub purgt zijn CDN bij elke deploy, dus updates staan binnen ~1-2 min live.
 # De verify-stap bevestigt dat Pages de nieuwe versie met text/css serveert.
 on:
@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - style.css
+      - company/**
       - .github/workflows/deploy-pages.yml
   workflow_dispatch: {}
 
@@ -31,10 +32,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build site (publiceer alleen style.css)
+      - name: Build site (style.css + company/)
         run: |
           mkdir -p _site
           cp style.css _site/style.css
+          mkdir -p _site/company
+          cp -r company/. _site/company/
 
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -43,22 +46,36 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Verifieer dat Pages de nieuwe style.css serveert
+      - name: Verifieer dat Pages de nieuwe bestanden serveert
         env:
-          CSS_URL: https://superrebel.github.io/solsbury-shared/style.css
+          BASE_URL: https://superrebel.github.io/solsbury-shared
         run: |
           set -euo pipefail
-          want="$(sha256sum style.css | cut -d' ' -f1)"
-          echo "Verwachte hash (gepushte file): $want"
-          for i in $(seq 1 20); do
-            got="$(curl -fsS "$CSS_URL" | sha256sum | cut -d' ' -f1)" || got="(nog geen respons)"
-            ct="$(curl -fsSI "$CSS_URL" 2>/dev/null | tr -d '\r' | grep -i '^content-type:' || echo 'content-type: ?')"
-            echo "poging $i: $got  |  $ct"
-            if [ "$got" = "$want" ]; then
-              echo "✅ Pages serveert de nieuwe style.css"
-              exit 0
-            fi
-            sleep 6
-          done
-          echo "❌ Pages serveert na alle retries nog niet de nieuwe inhoud"
-          exit 1
+
+          verify() {
+            local file="$1" url="$2"
+            local want got ct
+            want="$(sha256sum "$file" | cut -d' ' -f1)"
+            echo "== $file -> $url =="
+            echo "Verwachte hash (gepushte file): $want"
+            for i in $(seq 1 20); do
+              got="$(curl -fsS "$url" | sha256sum | cut -d' ' -f1)" || got="(nog geen respons)"
+              ct="$(curl -fsSI "$url" 2>/dev/null | tr -d '\r' | grep -i '^content-type:' || echo 'content-type: ?')"
+              echo "poging $i: $got  |  $ct"
+              if [ "$got" = "$want" ]; then
+                echo "✅ Pages serveert de nieuwe $file"
+                return 0
+              fi
+              sleep 6
+            done
+            echo "❌ Pages serveert na alle retries nog niet de nieuwe inhoud van $file"
+            return 1
+          }
+
+          status=0
+          verify style.css "$BASE_URL/style.css" || status=1
+          while IFS= read -r -d '' f; do
+            rel="${f#company/}"
+            verify "$f" "$BASE_URL/company/$rel" || status=1
+          done < <(find company -type f -print0)
+          exit "$status"
